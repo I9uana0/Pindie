@@ -114,27 +114,3 @@ export const vote = async (url, jwt, usersArray) => {
         return error;
     }
 }
-
-export const handleVote = async () => {
-    const jwt = getJWT();
-    let usersIdArray = game.users.length
-        ? game.users.map((user) => user.id)
-        : [];
-    usersIdArray.push(currnetUser.id);
-
-    const responce = await vote(
-        `${endpoints.games}/${game.id}`,
-        jwt,
-        usersIdArray
-    );
-
-    if (isResponseOk(responce)) {
-        setIsVoted(true);
-        setGame(() => {
-            return {
-                ...game,
-                users: [...game.users, currnetUser],
-            }
-        })
-    }
-}

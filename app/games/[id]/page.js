@@ -13,6 +13,7 @@ import { endpoints } from "@/app/api/config";
 import { Preloader } from "@/app/components/Preloader/Preloader";
 import { checkIfUserVoted } from "@/app/api/api-utils"
 import { handleVote } from "@/app/api/api-utils";
+import { vote } from "@/app/api/api-utils";
 
 
 export default function GamePage(props) {
@@ -68,6 +69,29 @@ export default function GamePage(props) {
       setIsVoted(false);
     }
   }, [currentUser, game])
+
+
+  const handleVote = async () => {
+    const jwt = getJWT();
+    let usersIdArray = game.users.length
+      ? game.users.map((user) => user.id)
+      : [];
+    usersIdArray.push(currentUser.id);
+    const response = await vote(
+      `${endpoints.games}/${game.id}`,
+      jwt,
+      usersIdArray
+    );
+    if (isResponseOk(response)) {
+      setIsVoted(true);
+      setGame(() => {
+        return {
+          ...game,
+          users: [...game.users, currentUser],
+        };
+      });
+    }
+  };
 
   return game ? (
     <main>
