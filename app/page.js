@@ -1,19 +1,17 @@
-import { getGamesByCategory } from "./Data/Data-util";
-
 import { Banner } from "@/app/components/Banner/Banner"
 import { Promo } from "@/app/components/Promo/Promo"
 import { CardsList } from "@/app/components/CardsList/CardsList"
+import { getData } from "./api/api-utils";
+import { endpoints } from "./api/config";
 
+export default async function Home() {
 
-export default function Home() {
-  const popularGames = getGamesByCategory("popular");
-  const newGames = getGamesByCategory("new");
+  const allGames = await getData(endpoints.games)
 
   return (
     <main className="main">
       <Banner />
-      <CardsList id="new" title="Новинки" data={newGames} />
-      < CardsList id="popular" title="Популярное" data={popularGames} />
+      <CardsList category="AllGames" title="Все игры" data={allGames} />
       <Promo />
     </main>
   );

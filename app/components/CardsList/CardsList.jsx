@@ -1,10 +1,12 @@
+import Link from "next/link";
+
 import "@/app/globals.css"
 import Styles from "@/app/components/CardsList/CardsList.module.css"
 import { Card } from "./Card/Card";
 
 export const CardsList = (props) => {
     return (
-        <section className={Styles["list-section"]}>
+        <section id="cardslist-wrapper" className={Styles["list-section"]}>
             <h2 className={Styles["list-section__title"]} id={props.id}>
                 {props.title}
             </h2>
@@ -12,9 +14,11 @@ export const CardsList = (props) => {
                 {props.data.map((item) => {
                     return (
                         <li className={Styles["cards-list__item"]} key={item.id}>
-                            <a href={item.link} target="_blank" className={Styles["card-list__link"]}>
+                            <Link
+                                href={`/games/${item.id}`}
+                                className={Styles["card-list__link"]}>
                                 <Card {...item} />
-                            </a>
+                            </Link>
                         </li>
                     )
                 })}

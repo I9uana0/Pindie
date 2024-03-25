@@ -11,3 +11,6 @@ export const getGamesByCategory = (category) => (
 )
 
 
+export const getGameById = (id) => (
+    data.find((game) => game.id == id)
+)

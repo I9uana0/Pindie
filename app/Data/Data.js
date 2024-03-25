@@ -280,3 +280,11 @@ export const data = [
         ],
     },
 ];
+export const categoryTitles = {
+    TDS: 'TDS',
+    new: 'Новые',
+    popular: 'Популярные',
+    shooter: 'Шутеры',
+    pixel: 'Пиксельные',
+    runner: 'Ранеры',
+}

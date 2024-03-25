@@ -1,4 +1,5 @@
 import Styles from "@/app/components/Banner/Banner.module.css"
+import Link from "next/link";
 
 export const Banner = () => (
     <section className={Styles.banner}>
@@ -13,9 +14,9 @@ export const Banner = () => (
                     аккаунт пользователя — получаете возможность голосовать за игры.
                 </p>
             </div>
-            <a href="#popular" className={`button ${"banner__link"}`}>
+            <Link href="#cardslist-wrapper" className={`button ${"banner__link"}`}>
                 Смотреть игры
-            </a>
+            </Link>
         </div>
         <img
             src="/images/banner-illustration.jpg"
