@@ -1,15 +1,20 @@
-import { getNormalizedGamesDataByCategory, normalizeData, normalizeDataObject } from "../api/api-utils";
-import { endpoints } from "../api/config";
-import { CardsList } from "../components/CardsList/CardsList";
+'use client'
 
-export default async function New() {
-    const shooterGames = await getNormalizedGamesDataByCategory(
-        endpoints.games,
-        'shooter'
-    )
+import { endpoints } from "../api/config";
+import { CardsListSection } from "../components/CardsList/CardsListSection";
+import { useGetDataByCategory } from "../api/api-hoocks";
+import { Preloader } from "../components/Preloader/Preloader";
+
+
+export default function Shooter() {
+    const shooterGames = useGetDataByCategory(endpoints.games, 'shooter');
     return (
         <main className="main-inner">
-            <CardsList id='shooter' title='Шутеры' data={shooterGames} />
+            {shooterGames ? (
+                <CardsListSection id='shooter' title='Шутеры' data={shooterGames} />
+            ) : (
+                <Preloader />
+            )}
         </main>
     )
 } 

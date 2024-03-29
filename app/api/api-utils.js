@@ -25,14 +25,21 @@ export const getData = async (url) => {
     }
 };
 
-export const getNormalizedGamesDataByCategory = async (url, category) => {
-    const data = await getData(`${url}?categories.name=${category}`);
-    return isResponseOk(data) ? normalizeData(data) : data;
-};
-
 export const getNormalizedGameDataById = async (url, id) => {
     const data = await getData(`${url}/${id}`);
     return isResponseOk(data) ? normalizeDataObject(data) : data;
+};
+
+export const getNormalizedGamesDataByCategory = async (url, category) => {
+    try {
+        const data = await getData(`${url}?categories.name=${category}`);
+        if (!data.length) {
+            throw new Error('Нет игр в категории')
+        }
+        return isResponseOk(data) ? normalizeData(data) : data;
+    } catch (error) {
+        return error
+    }
 };
 
 export const isResponseOk = (response) => {
@@ -41,23 +48,16 @@ export const isResponseOk = (response) => {
 
 export const authorize = async (url, data) => {
     try {
-
         const response = await fetch(url, {
             method: "POST",
-
             headers: { "Content-Type": "application/json" },
-
             body: JSON.stringify(data),
         });
-
         if (response.status !== 200) {
             throw new Error('Ошибка авторизации')
         }
-
         const result = await response.json();
-
         return result;
-
     } catch (error) {
         return error;
     }
@@ -91,26 +91,26 @@ export const removeJWT = () => {
     localStorage.removeItem("jwt");
 };
 
-export const checkIfUserVoted = (game, userId) => {
-    return game.users.find((user) => user.id === userId)
+export const checkIfUserVoted = (users, userId) => {
+    return users.find((user) => user.id === userId)
 }
 
 export const vote = async (url, jwt, usersArray) => {
     try {
         const response = await fetch(url, {
-            method: "PUT",
+            method: 'PUT',
             headers: {
-                'Content-type': 'application/json',
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${jwt}`,
             },
-            body: JSON.stringify({ 'users_permission_users': usersArray })
-        });
+            body: JSON.stringify({ users_permissions_users: usersArray }),
+        })
         if (response.status !== 200) {
-            throw new Error("Ошибка голосования");
+            throw new Error('Ошибка голосования')
         }
-        const result = await response.json();
-        return result;
+        const result = await response.json()
+        return result
     } catch (error) {
-        return error;
+        return error
     }
 }
