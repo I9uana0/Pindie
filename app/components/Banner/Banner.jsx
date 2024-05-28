@@ -14,7 +14,7 @@ export const Banner = () => (
                     аккаунт пользователя — получаете возможность голосовать за игры.
                 </p>
             </div>
-            <Link href="#cardslist-wrapper" className={`button ${"banner__link"}`}>
+            <Link href="" className={`button ${"banner__link"}`}>
                 Смотреть игры
             </Link>
         </div>
