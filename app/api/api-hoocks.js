@@ -12,5 +12,5 @@ export const useGetDataByCategory = (endpoint, category) => {
         }
         fetchData();
     }, []);
-    return isResponseOk(data);
+    return isResponseOk(data) && data;
 }; 
