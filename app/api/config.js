@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://best-pindie-back.nomorepartiesco.ru/';
+export const BASE_URL = 'http://best-pindie-back.nomorepartiesco.ru/api';
 
 export const endpoints = {
     games: `${BASE_URL}/games`,
